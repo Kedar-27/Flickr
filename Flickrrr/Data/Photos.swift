@@ -33,15 +33,15 @@ struct Results: Decodable{
         case results = "results"
         
     }
- 
+    
 }
 struct Photos: Decodable{
-   
+    
     let photo: [PhotosData]
     
     
     enum CodingKeys: String, CodingKey {
-       
+        
         case photo = "photo"
         
     }
@@ -56,9 +56,9 @@ struct PhotosData: Decodable{
     
     enum CodingKeys: String, CodingKey {
         case farm = "farm"
-          case secret = "secret"
-          case id = "id"
-          case server = "server"
+        case secret = "secret"
+        case id = "id"
+        case server = "server"
         
     }
     

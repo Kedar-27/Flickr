@@ -21,7 +21,7 @@ class ReusablePopupVC: UIViewController{
     
     
     
-   // var imageIndex = 0
+    // var imageIndex = 0
     override func viewDidLoad() {
         super.viewDidLoad()
         popupImage.image = nil
@@ -32,11 +32,11 @@ class ReusablePopupVC: UIViewController{
     override func viewWillAppear(_ animated: Bool) {
         
         super.viewWillAppear(animated)
-    //    self.popupImage.image = nil
-  
+        //    self.popupImage.image = nil
+        
         if let photo = photo{
             self.popupImage.sd_setImage(with: URL(string: "http://farm\(photo.farm).staticflickr.com/\(photo.server)/\(photo.id)_\(photo.secret).jpg" ))
-            }
+        }
     }
     
     
@@ -48,30 +48,30 @@ class ReusablePopupVC: UIViewController{
         popupImage.addGestureRecognizer(tapGestureRecognizer)
         
     }
-//    override func viewDidDisappear(_ animated: Bool) {
-//        super.viewDidAppear(animated)
-//        popupImage.image = nil
-//    }
-//
+    //    override func viewDidDisappear(_ animated: Bool) {
+    //        super.viewDidAppear(animated)
+    //        popupImage.image = nil
+    //    }
+    //
     
     
     
     @objc func imageTapped(tapGestureRecognizer: UITapGestureRecognizer){
-    let tappedImage = tapGestureRecognizer.view as! UIImageView
-    self.dismiss(animated: false, completion: {})
-    //dismiss(animated: true)
-    // Your action
-}
+       // let tappedImage = tapGestureRecognizer.view as! UIImageView
+        self.dismiss(animated: false, completion: {})
+        //dismiss(animated: true)
+        // Your action
+    }
     
-  
     
-//    func setImage(photo: PhotosData){
-//
-//           self.popupImage.sd_setImage(with: URL(string: "http://farm\(photo.farm).staticflickr.com/\(photo.server)/\(photo.id)_\(photo.secret).jpg" ))
-//
-//
-//        popupImage.downloadedFrom(link: "http://farm\(photo.farm).staticflickr.com/\(photo.server)/\(photo.id)_\(photo.secret).jpg" )
-//
+    
+    //    func setImage(photo: PhotosData){
+    //
+    //           self.popupImage.sd_setImage(with: URL(string: "http://farm\(photo.farm).staticflickr.com/\(photo.server)/\(photo.id)_\(photo.secret).jpg" ))
+    //
+    //
+    //        popupImage.downloadedFrom(link: "http://farm\(photo.farm).staticflickr.com/\(photo.server)/\(photo.id)_\(photo.secret).jpg" )
+    //
     
     
     

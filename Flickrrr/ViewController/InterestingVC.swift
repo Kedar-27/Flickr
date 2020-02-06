@@ -8,7 +8,7 @@
 
 import UIKit
 
-   
+
 
 class InterestingVC: UIViewController{
     
@@ -16,8 +16,8 @@ class InterestingVC: UIViewController{
     
     
     @IBOutlet weak var interestingCollectionView: UICollectionView!
-//    let recentString = "q=select%20*%20from%20flickr.photos.interestingness(\(indexICount),10)%20where%20api_key%3D'd5c7df3552b89d13fe311eb42715b510'&diagnostics=true&format=json"
-   
+    //    let recentString = "q=select%20*%20from%20flickr.photos.interestingness(\(indexICount),10)%20where%20api_key%3D'd5c7df3552b89d13fe311eb42715b510'&diagnostics=true&format=json"
+    
     var photosArray = [PhotosData]()
     var selectedIndex = 0
     var indexICount = 0
@@ -26,16 +26,16 @@ class InterestingVC: UIViewController{
     let interestingSegueId = "fromInterestingToPopup"
     
     var activityIndicator: UIActivityIndicatorView = UIActivityIndicatorView()
-   
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
         NetworkManager.shared.delegate = self
         
-
+        
         NetworkManager.shared.performAPI(Credentials: self.loadString())
         
-    
+        
         interestingCollectionView.dataSource = self
         interestingCollectionView.delegate = self
     }
@@ -47,7 +47,7 @@ class InterestingVC: UIViewController{
         
         if CheckInternet.Connection(){
             let layout = self.interestingCollectionView.collectionViewLayout as! UICollectionViewFlowLayout
-            layout.sectionInset = UIEdgeInsetsMake(0, 5, 0, 5)
+            layout.sectionInset = UIEdgeInsets.init(top: 0, left: 5, bottom: 0, right: 5)
             layout.minimumInteritemSpacing = 5
             layout.itemSize = CGSize(width: (self.interestingCollectionView.frame.width - 20)/2, height: (self.interestingCollectionView.frame.height)/3)
         }else{
@@ -86,39 +86,39 @@ extension InterestingVC : UICollectionViewDataSource, recievedData ,UICollection
         selectedIndex = indexPath.row
         performSegue(withIdentifier: interestingSegueId, sender: indexPath)
         
-
+        
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == interestingSegueId{
             let destVC = segue.destination as! ReusablePopupVC
             destVC.photo = photosArray[selectedIndex]
-          
+            
             
         }
     }
     
     
     
-//    func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
-//        //do something heree
-//
-//         if indexPath.row + 1 == photosArray.count  {
-//        indexICount = indexICount + 10
-//
-//            DispatchQueue.global(qos: .userInitiated).async{
-//                NetworkManager.shared.performAPI(Credentials:self.loadString())
-//            }
-//     // collectionView.reloadData()
-//
-//        }
-//    }
-   
+    //    func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
+    //        //do something heree
+    //
+    //         if indexPath.row + 1 == photosArray.count  {
+    //        indexICount = indexICount + 10
+    //
+    //            DispatchQueue.global(qos: .userInitiated).async{
+    //                NetworkManager.shared.performAPI(Credentials:self.loadString())
+    //            }
+    //     // collectionView.reloadData()
+    //
+    //        }
+    //    }
+    
     func ReceivedData(data: Data) {
         do{
             let downloadedJson = try JSONDecoder().decode(Query.self, from: data as Data)
             //downloadedJson.data
-         //   self.photosArray.append(contentsOf:downloadedJson.query.results.photo)
+            //   self.photosArray.append(contentsOf:downloadedJson.query.results.photo)
             
             for photo in downloadedJson.query.results.photo{
                 
@@ -134,7 +134,7 @@ extension InterestingVC : UICollectionViewDataSource, recievedData ,UICollection
             
             DispatchQueue.main.async {
                 self.interestingCollectionView.reloadData()
-                  self.activityIndicator.stopAnimating()
+                self.activityIndicator.stopAnimating()
             }
         }catch let jsonErr {
             print("Error serializing json:", jsonErr)
@@ -149,33 +149,33 @@ extension InterestingVC : UICollectionViewDataSource, recievedData ,UICollection
         
         
     }
-//    func scrollViewDidEndDragging(_ scrollView: UIScrollView, willDecelerate decelerate: Bool) {
-//        print("interesting scrolled")
-//        if myPaginationUpperLimit == photosArray.count - 1{
-//        indexICount = indexICount + 10
-//
-//        DispatchQueue.global(qos: .userInitiated).async{
-//            NetworkManager.shared.performAPI(Credentials:self.loadString())
-//    }
-//        }
-//    }
-//    func scrollViewDidScroll(_ scrollView: UIScrollView) {
-//        let  height = scrollView.frame.size.height
-//        let contentYoffset = scrollView.contentOffset.y
-//        let distanceFromBottom = scrollView.contentSize.height - contentYoffset
-//        if distanceFromBottom < height {
-//            print(" you reached end of the table")
-//
-//            if myPaginationUpperLimit == photosArray.count - 1{
-//                        indexICount = indexICount + 10
-//
-//                        DispatchQueue.global(qos: .userInitiated).async{
-//                            NetworkManager.shared.performAPI(Credentials:self.loadString())
-//                    }
-//                        }
-//
-//        }
-//    }
+    //    func scrollViewDidEndDragging(_ scrollView: UIScrollView, willDecelerate decelerate: Bool) {
+    //        print("interesting scrolled")
+    //        if myPaginationUpperLimit == photosArray.count - 1{
+    //        indexICount = indexICount + 10
+    //
+    //        DispatchQueue.global(qos: .userInitiated).async{
+    //            NetworkManager.shared.performAPI(Credentials:self.loadString())
+    //    }
+    //        }
+    //    }
+    //    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+    //        let  height = scrollView.frame.size.height
+    //        let contentYoffset = scrollView.contentOffset.y
+    //        let distanceFromBottom = scrollView.contentSize.height - contentYoffset
+    //        if distanceFromBottom < height {
+    //            print(" you reached end of the table")
+    //
+    //            if myPaginationUpperLimit == photosArray.count - 1{
+    //                        indexICount = indexICount + 10
+    //
+    //                        DispatchQueue.global(qos: .userInitiated).async{
+    //                            NetworkManager.shared.performAPI(Credentials:self.loadString())
+    //                    }
+    //                        }
+    //
+    //        }
+    //    }
     
     
     
@@ -187,7 +187,7 @@ extension InterestingVC : UICollectionViewDataSource, recievedData ,UICollection
             // we are at the end
             indexICount = indexICount + 10
             
-                NetworkManager.shared.performAPI(Credentials:self.loadString())
+            NetworkManager.shared.performAPI(Credentials:self.loadString())
             
             
         }
@@ -198,7 +198,7 @@ extension InterestingVC : UICollectionViewDataSource, recievedData ,UICollection
     }
     func activityIndi(){
         activityIndicator.center = self.view.center
-        activityIndicator.activityIndicatorViewStyle = UIActivityIndicatorViewStyle.gray
+        activityIndicator.style = UIActivityIndicatorView.Style.gray
         activityIndicator.hidesWhenStopped = true
         activityIndicator.startAnimating()
         view.addSubview(activityIndicator)
@@ -209,8 +209,8 @@ extension InterestingVC : UICollectionViewDataSource, recievedData ,UICollection
     }
     func Alert (Message: String){
         
-        let alert = UIAlertController(title: "Alert", message: Message, preferredStyle: UIAlertControllerStyle.alert)
-        alert.addAction(UIAlertAction(title: "ok", style: UIAlertActionStyle.default, handler: nil))
+        let alert = UIAlertController(title: "Alert", message: Message, preferredStyle: UIAlertController.Style.alert)
+        alert.addAction(UIAlertAction(title: "ok", style: UIAlertAction.Style.default, handler: nil))
         self.present(alert, animated: true, completion: nil)
         
         
