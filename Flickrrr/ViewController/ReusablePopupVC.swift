@@ -17,7 +17,7 @@ class ReusablePopupVC: UIViewController{
     @IBOutlet weak var popupImage: UIImageView!
     
     
-    var photo: PhotosData?
+    var photo: Photo?
     
     
     

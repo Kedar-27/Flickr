@@ -10,13 +10,12 @@ import UIKit
 import Alamofire
 
 
-let apiBaseUrl = "https://query.yahooapis.com/v1/public/yql?"
+let apiBaseUrl = "https://api.flickr.com/services/rest"
+let apiKey = "ca370d51a054836007519a00ff4ce59e"
+
 
 class NetworkManager{
-    
-    
-    
-    
+
     var delegate: recievedData?
     static var shared = NetworkManager()
     

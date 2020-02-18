@@ -18,9 +18,9 @@ class InterestingVC: UIViewController{
     @IBOutlet weak var interestingCollectionView: UICollectionView!
     //    let recentString = "q=select%20*%20from%20flickr.photos.interestingness(\(indexICount),10)%20where%20api_key%3D'd5c7df3552b89d13fe311eb42715b510'&diagnostics=true&format=json"
     
-    var photosArray = [PhotosData]()
+    var photosArray = [Photo]()
     var selectedIndex = 0
-    var indexICount = 0
+    var indexICount = 1
     var myPaginationUpperLimit = 0
     
     let interestingSegueId = "fromInterestingToPopup"
@@ -116,11 +116,11 @@ extension InterestingVC : UICollectionViewDataSource, recievedData ,UICollection
     
     func ReceivedData(data: Data) {
         do{
-            let downloadedJson = try JSONDecoder().decode(Query.self, from: data as Data)
+            let downloadedJson = try JSONDecoder().decode(FlickrJSONResponse.self, from: data as Data)
             //downloadedJson.data
             //   self.photosArray.append(contentsOf:downloadedJson.query.results.photo)
             
-            for photo in downloadedJson.query.results.photo{
+            for photo in downloadedJson.photos.photo{
                 
                 let existingarr = self.photosArray.contains(where: { (existingPhoto) -> Bool in
                     existingPhoto.id == photo.id
@@ -144,7 +144,8 @@ extension InterestingVC : UICollectionViewDataSource, recievedData ,UICollection
     
     func loadString() -> String{
         
-        return "q=select%20*%20from%20flickr.photos.interestingness(\(indexICount),100)%20where%20api_key%3D'd5c7df3552b89d13fe311eb42715b510'&diagnostics=true&format=json"
+        return "/?method=flickr.photos.getRecent&api_key=\(apiKey)&per_page=10&format=json&page=\(indexICount)&nojsoncallback=1"
+
         
         
         
@@ -185,7 +186,7 @@ extension InterestingVC : UICollectionViewDataSource, recievedData ,UICollection
         
         if (bottomEdge >= (scrollView.contentSize.height - 100)) {
             // we are at the end
-            indexICount = indexICount + 10
+            indexICount = indexICount + 1
             
             NetworkManager.shared.performAPI(Credentials:self.loadString())
             

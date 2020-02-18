@@ -16,9 +16,9 @@ let interestingCellReuseId = "interestingImage"
 class RecentVC : UIViewController{
     //MARK: Declarations
     @IBOutlet weak var recentCollectionView: UICollectionView!
-    var photosArray = [PhotosData]()
+    var photosArray = [Photo]()
     var myPaginationUpperLimit = 0
-    var indexRCount = 0
+    var indexRCount = 1
     var activityIndicator: UIActivityIndicatorView = UIActivityIndicatorView()
     var selectedIndex = 0
     
@@ -77,7 +77,7 @@ extension  RecentVC: UICollectionViewDataSource , recievedData ,UICollectionView
         
         
         cell.setData(photo: specificPhoto)
-        cell.indexPathLabel.text = "\(indexPath.row)"
+        cell.indexPathLabel.text = ""
         myPaginationUpperLimit = indexPath.row
         
         
@@ -115,13 +115,13 @@ extension  RecentVC: UICollectionViewDataSource , recievedData ,UICollectionView
         //recieve data here and display through collectionview methods
         
         do{
-            let downloadedJson = try JSONDecoder().decode(Query.self, from: data as Data)
+            let downloadedJson = try JSONDecoder().decode(FlickrJSONResponse.self, from: data as Data)
             //downloadedJson.data
             
             
             
             
-            for photo in downloadedJson.query.results.photo{
+            for photo in downloadedJson.photos.photo{
                 
                 let existingarr = self.photosArray.contains(where: { (existingPhoto) -> Bool in
                     existingPhoto.id == photo.id
@@ -152,7 +152,7 @@ extension  RecentVC: UICollectionViewDataSource , recievedData ,UICollectionView
     
     func loadString() -> String{
         
-        return "q=select%20*%20from%20flickr.photos.recent(\(indexRCount),100)%20where%20api_key%3D'd5c7df3552b89d13fe311eb42715b510'&diagnostics=true&format=json"
+        return "/?method=flickr.photos.getRecent&api_key=\(apiKey)&per_page=10&format=json&page=\(indexRCount)&nojsoncallback=1"
         
     }
     
@@ -190,7 +190,7 @@ extension  RecentVC: UICollectionViewDataSource , recievedData ,UICollectionView
         if (bottomEdge >= (scrollView.contentSize.height - 100)) {
             // we are at the end
             
-            indexRCount = indexRCount + 100
+            indexRCount = indexRCount + 1
             NetworkManager.shared.performAPI(Credentials:self.loadString())
             
         }

@@ -81,7 +81,6 @@
 			children = (
 				974239B7210F0FBC007AB792 /* Flickrrr */,
 				974239B6210F0FBC007AB792 /* Products */,
-				974239D8210F251A007AB792 /* Cell */,
 				1990867259C94FA17EE62C0F /* Pods */,
 				5DF81EA046757CCC69550EE6 /* Frameworks */,
 			);
@@ -99,6 +98,7 @@
 			isa = PBXGroup;
 			children = (
 				974239B8210F0FBC007AB792 /* AppDelegate.swift */,
+				974239D8210F251A007AB792 /* Cell */,
 				97C74D742110881A00260124 /* Helper */,
 				974239CC210F1231007AB792 /* ViewController */,
 				974239CA210F1215007AB792 /* StoryBoard */,
@@ -434,6 +434,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 3TR3KS6QRR;
 				INFOPLIST_FILE = Flickrrr/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -455,6 +456,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 3TR3KS6QRR;
 				INFOPLIST_FILE = Flickrrr/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",

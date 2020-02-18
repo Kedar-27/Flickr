@@ -18,7 +18,7 @@ class RecentCell : UICollectionViewCell {
     @IBOutlet weak var recentImageView: UIImageView!
     
     
-    func setData(photo: PhotosData){
+    func setData(photo: Photo){
         
         if recentImageView.image == nil{
         recentImageView.sd_setImage(with: URL(string: "http://farm\(photo.farm).staticflickr.com/\(photo.server)/\(photo.id)_\(photo.secret)_t_d.jpg" )
